@@ -11,9 +11,9 @@ class GraphQlService {
     try {
       QueryResult result = await client.mutate(MutationOptions(
         fetchPolicy: FetchPolicy.noCache,
-        document: gql('''
-              mutation Login{
-                login(cardId: "123", password: "123")
+        document: gql(''' 
+              mutation Login(\$cardId: String!, \$password: String!){
+                login(cardId: \$cardId, password: \$password)
                   {
                     token,
                     tokenType
