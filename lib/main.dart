@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prueba_64/presentation/screens/home_page.dart';
+import 'package:prueba_64/presentation/screens/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,9 +20,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: GoogleFonts.karla().fontFamily,
         ),
-        home: const MyHomePage(
-          'demo',
-          title: 'demo',
-        ));
+        home: const LoginPage());
   }
 }

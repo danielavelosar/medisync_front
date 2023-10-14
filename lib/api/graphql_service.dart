@@ -24,11 +24,14 @@ class GraphQlService {
             '''),
         variables: {"cardId": cardId, "password": password},
       ));
+
       if (result.hasException) {
         print("una excepcion");
-        print(result.source.toString());
-        print("una excepcion");
-        throw Exception(result.exception.toString());
+        if (result.exception!.graphqlErrors[0].message ==
+            "Invalid credentials") {
+          return LoginResponse(token: "", tokenType: "");
+        }
+        throw result.exception!;
       }
 
       LoginResponse response =
@@ -36,13 +39,8 @@ class GraphQlService {
       print("hay respuesta");
       return response;
     } catch (e) {
-      if (e is OperationException) {
-        print(e.graphqlErrors.toString());
-        throw Exception(e.graphqlErrors.toString());
-      } else {
-        print(e);
-        throw Exception(e);
-      }
+      print(e);
+      throw Exception(e);
     }
   }
 }
