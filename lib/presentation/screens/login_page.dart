@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prueba_64/presentation/screens/home_page.dart';
 import 'package:prueba_64/api/api_models.dart';
 import 'package:prueba_64/api/graphql_service.dart';
-
+import 'package:prueba_64/presentation/widgets/dropdown_specialties.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,21 +17,17 @@ class _LoginPageState extends State<LoginPage> {
   LoginResponse? _loginResponse;
   String _error = "";
 
-
-  void _loginButtonAction(String cardId, String password) 
-  async {
+  void _loginButtonAction(String cardId, String password) async {
     _loginResponse = null;
     _loginResponse =
         await GraphQlService().login(cardId: cardId, password: password);
-        
+
     if (_loginResponse!.token == "") {
       // TODO: show error
       _error = "Invalid credentials";
       _loginResponse = null;
-    }
-    else if (_loginResponse == null) {
-    }
-    else {
+    } else if (_loginResponse == null) {
+    } else {
       print("correct credentials");
       // ignore: use_build_context_synchronously
       Navigator.push(
@@ -47,8 +43,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {});
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              DropdownSpecialties(),
               if (_error != "")
                 Text(
                   _error,

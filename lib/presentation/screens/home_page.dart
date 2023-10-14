@@ -5,6 +5,7 @@ import 'package:prueba_64/api/graphql_service.dart';
 import 'package:prueba_64/presentation/widgets/appointments_widget.dart';
 import 'package:prueba_64/utils/graphql_config.dart';
 import 'package:prueba_64/presentation/screens/search_page.dart';
+import 'package:prueba_64/presentation/widgets/dropdown_specialties.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({super.key, required this.token, required this.tokenType});
