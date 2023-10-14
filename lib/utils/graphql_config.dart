@@ -7,4 +7,17 @@ class GraphQlConfig {
     link: url,
     cache: GraphQLCache(),
   );
+
+  static GraphQLClient createAuthClient(String token, String tokenType) {
+    final AuthLink authLink = AuthLink(getToken: () async {
+      return '$tokenType $token';
+    });
+
+    final Link link = authLink.concat(url);
+
+    return GraphQLClient(
+      link: link,
+      cache: GraphQLCache(),
+    );
+  }
 }
