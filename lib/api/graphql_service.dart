@@ -43,4 +43,40 @@ class GraphQlService {
       throw Exception(e);
     }
   }
+
+  FutureOr<List<BookedAppointment>> getBookedAppointments(
+      {required GraphQLClient client}) async {
+    try {
+      QueryResult result = await client.query(QueryOptions(
+        fetchPolicy: FetchPolicy.noCache,
+        document: gql(''' 
+              query bookedAppointments {
+                myAppointments(types:PENDING){
+                  doctor{
+                    name
+                    specialty
+                  }
+                  date
+                  timeBlock{
+                    startTime
+                  }
+                }
+}
+            '''),
+      ));
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+
+      List<BookedAppointment> response = [];
+      for (var appointment in result.data!['bookedAppointments']) {
+        response.add(BookedAppointment.fromMap(map: appointment));
+      }
+      return response;
+    } catch (e) {
+      print(e);
+      throw Exception(e);
+    }
+  }
 }
