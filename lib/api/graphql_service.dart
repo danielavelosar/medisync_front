@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:prueba_64/api/api_models.dart';
 import 'package:prueba_64/utils/graphql_config.dart';
@@ -6,7 +8,7 @@ class GraphQlService {
   static GraphQlConfig graphQlConfig = GraphQlConfig();
   GraphQLClient client = graphQlConfig.client;
 
-  Future<LoginResponse> login(
+  FutureOr<LoginResponse> login(
       {required String cardId, required String password}) async {
     try {
       QueryResult result = await client.mutate(MutationOptions(
@@ -34,7 +36,13 @@ class GraphQlService {
       print("hay respuesta");
       return response;
     } catch (e) {
-      throw Exception(e);
+      if (e is OperationException) {
+        print(e.graphqlErrors.toString());
+        throw Exception(e.graphqlErrors.toString());
+      } else {
+        print(e);
+        throw Exception(e);
+      }
     }
   }
 }
