@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:prueba_64/api/api_models.dart';
 import 'package:prueba_64/api/graphql_service.dart';
+import 'package:prueba_64/utils/graphql_config.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.token, required this.tokenType});
+  MyHomePage({super.key, required this.token, required this.tokenType});
   final String token;
   final String tokenType;
-  
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // ignore: non_constant_identifier_names
-  LoginResponse? _login_response;
-
   @override
   void initState() {
     super.initState();
+    final GraphQLClient _client =
+        GraphQlConfig.createAuthClient(widget.token, widget.tokenType);
+  }
+  LoginResponse? _appointmentResponse;
+
+
+void _renderAppointments(GraphQLClient client) 
+  async {
+    _appointmentResponse = null;
+    //_appointmentResponse =
+      //  await GraphQlService().getBookedAppointments(client: client);
+        
+    
+    setState(() {});
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,24 +40,21 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text('Token: ${widget.token}'),
         ),
-        body: SafeArea(
-          child: _login_response == null
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Token: ${_login_response!.token}',
-                      ),
-                      Text(
-                        'TokenType: ${_login_response!.tokenType}',
-                      ),
-                    ],
-                  ),
+        body: Column(children: <Widget>[
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Token: ${widget.token}',
                 ),
-        ));
+                Text(
+                  'TokenType: ${widget.tokenType}',
+                ),
+                ListView()
+              ],
+            ),
+          ),
+        ]));
   }
 }
