@@ -70,7 +70,7 @@ class GraphQlService {
       }
 
       List<BookedAppointment> response = [];
-      for (var appointment in result.data!['bookedAppointments']) {
+      for (var appointment in result.data!['myAppointments']) {
         response.add(BookedAppointment.fromMap(map: appointment));
       }
       return response;

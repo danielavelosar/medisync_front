@@ -19,16 +19,19 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     final GraphQLClient _client =
         GraphQlConfig.createAuthClient(widget.token, widget.tokenType);
+    _renderAppointments(_client);
   }
-  LoginResponse? _appointmentResponse;
+  
+  List<BookedAppointment>? _appointmentResponse;
 
 
 void _renderAppointments(GraphQLClient client) 
   async {
     _appointmentResponse = null;
-    //_appointmentResponse =
-      //  await GraphQlService().getBookedAppointments(client: client);
+    _appointmentResponse =
+        await GraphQlService().getBookedAppointments(client: client);
         
+    print(_appointmentResponse);
     
     setState(() {});
   }
@@ -51,7 +54,7 @@ void _renderAppointments(GraphQLClient client)
                 Text(
                   'TokenType: ${widget.tokenType}',
                 ),
-                ListView()
+                
               ],
             ),
           ),
