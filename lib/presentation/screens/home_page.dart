@@ -17,23 +17,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    final GraphQLClient _client =
-        GraphQlConfig.createAuthClient(widget.token, widget.tokenType);
-    _renderAppointments(_client);
+    _renderAppointments();
   }
-  
+
   List<BookedAppointment>? _appointmentResponse;
 
-
-void _renderAppointments(GraphQLClient client) 
-  async {
+  Future<List<BookedAppointment>> _renderAppointments() async {
+    final GraphQLClient _client =
+        GraphQlConfig.createAuthClient(widget.token, widget.tokenType);
     _appointmentResponse = null;
     _appointmentResponse =
-        await GraphQlService().getBookedAppointments(client: client);
-        
-    print(_appointmentResponse);
-    
+        await GraphQlService().getBookedAppointments(client: _client);
+
+    print(_appointmentResponse?[0].doctor.specialty.toString());
     setState(() {});
+
+    return _appointmentResponse!;
   }
 
   @override
@@ -45,17 +44,27 @@ void _renderAppointments(GraphQLClient client)
         ),
         body: Column(children: <Widget>[
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Token: ${widget.token}',
-                ),
-                Text(
-                  'TokenType: ${widget.tokenType}',
-                ),
-                
-              ],
+            child: FutureBuilder(
+              future: _renderAppointments(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print(snapshot.data!.length);
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        print(
+                            "snapshot.data![index].doctor.specialty.toString()");
+                        return Card(
+                          child: Text(snapshot.data![index].doctor.specialty
+                              .toString()),
+                        );
+                      });
+                } else if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
           ),
         ]));
