@@ -42,7 +42,7 @@ class AppointmentWidget extends StatelessWidget {
                                     tokenType: tokenType,
                                   )));
                     },
-                    child: Icon(Icons.delete),
+                    child: Icon(Icons.delete, color: Colors.white),
                   ),
                 ),
               );

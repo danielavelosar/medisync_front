@@ -17,23 +17,33 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme(
-              primary: const Color.fromARGB(255, 10, 166, 150),
+              primary: const Color.fromARGB(255, 23, 103, 95),
               secondary: Color.fromARGB(255, 23, 103, 95),
               surface: const Color.fromARGB(255, 10, 166, 150),
               background: Color.fromARGB(255, 239, 243, 243),
               error: Color.fromARGB(255, 255, 0, 0),
-              onPrimary: Color.fromARGB(255, 65, 211, 196),
+              onPrimary: Color.fromARGB(255, 135, 195, 189),
               onSecondary: Color.fromARGB(255, 14, 87, 79),
-              onSurface: Color.fromARGB(255, 127, 176, 171),
-              onBackground: const Color.fromARGB(255, 10, 166, 150),
+              onSurface: Color.fromARGB(255, 14, 87, 79),
+              onBackground: const Color.fromARGB(255, 188, 216, 214),
               onError: Color.fromARGB(255, 34, 110, 103),
               brightness: Brightness.light),
           useMaterial3: true,
           textTheme: TextTheme(
+              titleLarge: TextStyle(
+                fontFamily: GoogleFonts.karla().fontFamily,
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+              ),
               titleMedium: TextStyle(
+                fontFamily: GoogleFonts.karla().fontFamily,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+              titleSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                   color: Colors.white),
               labelSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,

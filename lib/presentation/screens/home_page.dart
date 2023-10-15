@@ -43,27 +43,144 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text('Token: ${widget.token}'),
-        ),
         body: _appointmentResponse == null
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(
                 children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 3,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.7),
+                              Colors.white,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30))),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            image: MediaQuery.of(context).size.width > 800
+                                ? const DecorationImage(
+                                    image: AssetImage(
+                                        'lib/assets/images/logo_blanco_medisync.png'),
+                                    fit: BoxFit.contain,
+                                  )
+                                : null),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width > 400
+                                      ? 20
+                                      : 0),
+                              SafeArea(
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width > 800
+                                      ? MediaQuery.of(context).size.width / 3
+                                      : null,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Welcome Back!",
+                                          style: TextStyle(
+                                              fontSize: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .fontSize,
+                                              fontWeight: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .fontWeight,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondary)),
+                                      Text("Schedule By Specialty",
+                                          style: TextStyle(
+                                              fontSize: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .fontSize,
+                                              fontWeight: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .fontWeight,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondary)),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 2,
+                                            fixedSize: Size(250, 60),
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SearchResultsPage(
+                                                            specialty: Specialty
+                                                                .Anesthesiology)));
+                                          },
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Search by Specialty",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              SizedBox(width: 10),
+                                              Icon(
+                                                Icons.search,
+                                                color: Colors.white,
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Appointments",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  AppointmentWidget(
+                    appointmentResponse: _appointmentResponse!,
+                    token: widget.token,
+                    tokenType: widget.tokenType,
+                  ),
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchResultsPage(
-                                    specialty: Specialty.Anesthesiology)));
-                      },
-                      child: const Text("Search By Specialty")),
-                  const Text("Appointments"),
-                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        textStyle: Theme.of(context).textTheme.titleSmall,
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -76,12 +193,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   timeBlockId: 1)),
                         );
                       },
-                      child: const Text("create an appointment")),
-                  AppointmentWidget(
-                    appointmentResponse: _appointmentResponse!,
-                    token: widget.token,
-                    tokenType: widget.tokenType,
-                  ),
+                      child: const Text(
+                        "create an appointment",
+                        style: TextStyle(color: Colors.white),
+                      )),
                 ],
               ));
   }
