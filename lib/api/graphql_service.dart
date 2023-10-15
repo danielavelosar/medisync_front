@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:prueba_64/api/api_models.dart';
@@ -52,7 +53,9 @@ class GraphQlService {
         document: gql(''' 
               query bookedAppointments {
                 myAppointments(types:PENDING){
+                  id
                   doctor{
+                    id
                     name
                     specialty
                   }
@@ -77,6 +80,77 @@ class GraphQlService {
     } catch (e) {
       print(e);
       throw Exception(e);
+    }
+  }
+
+  FutureOr<bool> createAppointment(
+      {required GraphQLClient client,
+      required int doctorId,
+      required String date,
+      required int timeBlockId}) async {
+    try {
+      QueryResult result = await client.mutate(MutationOptions(
+        fetchPolicy: FetchPolicy.noCache,
+        document: gql(''' 
+              mutation BookAppointment(\$doctorId: Int!, \$date: LocalDate! , \$timeBlockId: Int!){
+                bookAppointment(doctorId: \$doctorId, date:\$date, timeBlockId:\$timeBlockId  )
+                } 
+            '''),
+        variables: {
+          "doctorId": doctorId,
+          "date": date,
+          "timeBlockId": timeBlockId
+        },
+      ));
+
+      if (result.hasException) {
+        print("una excepcion");
+        throw result.exception!;
+      }
+
+      bool response = result.data!['bookAppointment'];
+      print("hay respuesta");
+      if (response == true) {
+        return response;
+      } else {
+        throw Exception("Error creating appointment");
+      }
+    } catch (e) {
+      print(e);
+      throw Exception(e.toString());
+    }
+  }
+
+  FutureOr<bool> deleteAppointment({
+    required GraphQLClient client,
+    required int appointmentId,
+  }) async {
+    try {
+      QueryResult result = await client.mutate(MutationOptions(
+        fetchPolicy: FetchPolicy.noCache,
+        document: gql(''' 
+              mutation DeleteMyAppointment(\$appointmentId: Int!){
+                cancelAppointment(appointmentId: \$appointmentId  )
+                } 
+            '''),
+        variables: {"appointmentId": appointmentId},
+      ));
+
+      if (result.hasException) {
+        print("una excepcion");
+        throw result.exception!;
+      }
+
+      bool response = result.data!['cancelAppointment'];
+      print("hay respuesta");
+      if (response == true) {
+        return response;
+      } else {
+        throw Exception("Error deleting appointment");
+      }
+    } catch (e) {
+      print(e);
+      throw Exception(e.toString());
     }
   }
 }

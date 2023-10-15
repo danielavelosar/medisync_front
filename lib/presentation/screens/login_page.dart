@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_64/presentation/screens/create_appointment_page.dart';
 import 'package:prueba_64/presentation/screens/home_page.dart';
 import 'package:prueba_64/api/api_models.dart';
 import 'package:prueba_64/api/graphql_service.dart';
@@ -55,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              DropdownSpecialties(),
               if (_error != "")
                 Text(
                   _error,
