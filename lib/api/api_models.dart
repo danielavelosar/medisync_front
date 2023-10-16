@@ -13,6 +13,13 @@ class LoginResponse {
       );
 }
 
+enum Type {
+  PENDING,
+  ASSISTED,
+  CANCELLED,
+  MISSED
+}
+
 enum Specialty {
   GeneralMedicine,
   Pediatrics,
@@ -40,12 +47,15 @@ enum Specialty {
 
 class TimeBlock {
   late final String startTime;
+  late final int id;
 
   TimeBlock({
     required this.startTime,
+    this.id = 0,
   });
 
   static TimeBlock fromMap({required Map map}) => TimeBlock(
+        id: map['id'],
         startTime: map['startTime'],
       );
 }
@@ -83,9 +93,9 @@ class AvailableAppointment {
 
   static AvailableAppointment fromMap({required Map map}) =>
       AvailableAppointment(
-        doctor: map['doctor'],
+        doctor: DoctorDisplay.fromMap(map: map['doctor']),
         date: map['date'],
-        timeBlock: map['timeBlock'],
+        timeBlock: TimeBlock.fromMap(map: map['timeBlock']),
       );
 }
 
@@ -96,12 +106,14 @@ class BookedAppointment {
   late final DoctorDisplay doctor;
   late final String date;
   late final TimeBlock timeBlock;
+  late final Type type;
 
   BookedAppointment({
     this.id = 0,
     required this.doctor,
     required this.date,
     required this.timeBlock,
+    required this.type,
   });
 
   static BookedAppointment fromMap({required Map map}) => BookedAppointment(
@@ -109,6 +121,8 @@ class BookedAppointment {
         doctor: DoctorDisplay.fromMap(map: map["doctor"]),
         date: map['date'],
         timeBlock: TimeBlock.fromMap(map: map["timeBlock"]),
+        type: Type.values.firstWhere(
+            (element) => element.toString() == "Type.${map['type']}"),
       );
 }
 

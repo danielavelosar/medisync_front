@@ -5,7 +5,7 @@ import 'package:prueba_64/utils/graphql_config.dart';
 
 // ignore: must_be_immutable
 class CreateAnAppointmentPage extends StatefulWidget {
-  CreateAnAppointmentPage(
+  const CreateAnAppointmentPage(
       {super.key,
       required this.token,
       required this.tokenType,

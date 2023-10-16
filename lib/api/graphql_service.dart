@@ -51,7 +51,7 @@ class GraphQlService {
         fetchPolicy: FetchPolicy.noCache,
         document: gql(''' 
               query bookedAppointments {
-                myAppointments(types:PENDING){
+                myAppointments(types:[PENDING]){
                   id
                   doctor{
                     id
@@ -60,8 +60,10 @@ class GraphQlService {
                   }
                   date
                   timeBlock{
+                    id
                     startTime
                   }
+                  type
                 }
 }
             '''),
@@ -81,6 +83,87 @@ class GraphQlService {
       throw Exception(e);
     }
   }
+
+  FutureOr<List<BookedAppointment>> getAppointmentsHistory(
+      {required GraphQLClient client}) async {
+    try {
+      QueryResult result = await client.query(QueryOptions(
+        fetchPolicy: FetchPolicy.noCache,
+        document: gql(''' 
+              query appointmentsHistory {
+                myAppointments(types:[ASSISTED,CANCELLED,PENDING,MISSED]){
+                  id
+                  doctor{
+                    id
+                    name
+                    specialty
+                  }
+                  date
+                  timeBlock{
+                    id
+                    startTime
+                  }
+                  type
+                }
+}
+            '''),
+      ));
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+
+      List<BookedAppointment> response = [];
+      for (var appointment in result.data!['myAppointments']) {
+        response.add(BookedAppointment.fromMap(map: appointment));
+      }
+      return response;
+    } catch (e) {
+      print(e);
+      throw Exception(e);
+    }
+  }
+
+
+
+  FutureOr<List<AvailableAppointment>> getAvailableAppointments(
+      {required GraphQLClient client, required String specialty, required String startDate, required String endDate}) async {
+    try {
+      print(specialty);
+      QueryResult result = await client.query(QueryOptions(
+        fetchPolicy: FetchPolicy.noCache,
+        document: gql('''
+  query allAvailableAppointments(\$specialty: Specialty!, \$startDate: LocalDate!, \$endDate: LocalDate!) {
+    availableAppointments(specialty: \$specialty, startDate: \$startDate, endDate: \$endDate) {
+      doctor {
+        id,
+        name,
+        specialty
+      },
+      date,
+      timeBlock {
+        id,
+        startTime
+      },
+    }
+  }
+'''), variables: {"specialty": specialty, "startDate": startDate, "endDate": endDate}
+      ));
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+      List<AvailableAppointment> response = [];
+      for (var appointment in result.data!['availableAppointments']) {
+        response.add(AvailableAppointment.fromMap(map: appointment));
+      }
+      return response;
+    } catch (e) {
+      print(e);
+      throw Exception(e);
+    }
+  }
+
 
   FutureOr<bool> createAppointment(
       {required GraphQLClient client,
@@ -112,7 +195,7 @@ class GraphQlService {
       if (response == true) {
         return response;
       } else {
-        throw Exception("Error creating appointment");
+        throw Exception(result.exception);
       }
     } catch (e) {
       print(e);
