@@ -51,19 +51,23 @@ class TimeBlock {
 }
 
 class DoctorDisplay {
+  late final int id;
   late final String name;
   late final Specialty specialty;
 
   DoctorDisplay({
+    this.id = 0,
     required this.name,
     required this.specialty,
   });
 
   static DoctorDisplay fromMap({required Map map}) => DoctorDisplay(
+        id: map['id'],
         name: map['name'],
         // specialty is specialty enum
-        specialty: Specialty.values.firstWhere((element) => element.toString() == "Specialty.${map['specialty']}"),
-        );
+        specialty: Specialty.values.firstWhere(
+            (element) => element.toString() == "Specialty.${map['specialty']}"),
+      );
 }
 
 class AvailableAppointment {
@@ -88,17 +92,20 @@ class AvailableAppointment {
 enum AppointmentStatus { PENDING, ASSISTED, CANCELLED, MISSED }
 
 class BookedAppointment {
+  late final int id;
   late final DoctorDisplay doctor;
   late final String date;
   late final TimeBlock timeBlock;
 
   BookedAppointment({
+    this.id = 0,
     required this.doctor,
     required this.date,
     required this.timeBlock,
   });
 
   static BookedAppointment fromMap({required Map map}) => BookedAppointment(
+        id: map['id'],
         doctor: DoctorDisplay.fromMap(map: map["doctor"]),
         date: map['date'],
         timeBlock: TimeBlock.fromMap(map: map["timeBlock"]),

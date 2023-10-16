@@ -16,8 +16,40 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+          colorScheme: ColorScheme(
+              primary: const Color.fromARGB(255, 23, 103, 95),
+              secondary: Color.fromARGB(255, 23, 103, 95),
+              surface: const Color.fromARGB(255, 10, 166, 150),
+              background: Color.fromARGB(255, 239, 243, 243),
+              error: Color.fromARGB(255, 255, 0, 0),
+              onPrimary: Color.fromARGB(255, 135, 195, 189),
+              onSecondary: Color.fromARGB(255, 14, 87, 79),
+              onSurface: Color.fromARGB(255, 14, 87, 79),
+              onBackground: const Color.fromARGB(255, 188, 216, 214),
+              onError: Color.fromARGB(255, 34, 110, 103),
+              brightness: Brightness.light),
           useMaterial3: true,
+          textTheme: TextTheme(
+              titleLarge: TextStyle(
+                fontFamily: GoogleFonts.karla().fontFamily,
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+              ),
+              titleMedium: TextStyle(
+                fontFamily: GoogleFonts.karla().fontFamily,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+              titleSmall: TextStyle(
+                  fontFamily: GoogleFonts.karla().fontFamily,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+              labelSmall: TextStyle(
+                  fontFamily: GoogleFonts.karla().fontFamily,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 10, 166, 150))),
           fontFamily: GoogleFonts.karla().fontFamily,
         ),
         home: const LoginPage());
