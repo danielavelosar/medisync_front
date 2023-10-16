@@ -62,7 +62,6 @@ class _SearchResultPage extends State<SearchResultsPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text('Token: ${widget.token}'),
         ),
         body: _availableAppointmentResponse == null
             ? const Center(
@@ -70,10 +69,11 @@ class _SearchResultPage extends State<SearchResultsPage> {
               )
             : Column(
                 children: [
-                  
                   const Text("Appointments"),
                   AvailableAppointmentWidget(
-                     appointmentResponse: _availableAppointmentResponse!, token: widget.token, tokenType: widget.tokenType),
+                      appointmentResponse: _availableAppointmentResponse!,
+                      token: widget.token,
+                      tokenType: widget.tokenType),
                 ],
               ));
   }

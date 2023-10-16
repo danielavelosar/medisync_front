@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prueba_64/presentation/screens/home_page.dart';
 import 'package:prueba_64/presentation/screens/login_page.dart';
+import 'package:prueba_64/presentation/screens/welcome_page.dart';
+import 'package:prueba_64/presentation/widgets/dropdown_specialties.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
               ),
               titleSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,
-                  fontSize: 16,
+                  fontSize: MediaQuery.of(context).size.width > 800 ? 16 : 12,
                   fontWeight: FontWeight.w600,
                   color: Colors.white),
               labelSmall: TextStyle(
@@ -52,6 +54,7 @@ class MyApp extends StatelessWidget {
                   color: Color.fromARGB(255, 10, 166, 150))),
           fontFamily: GoogleFonts.karla().fontFamily,
         ),
+        //home: const LoginPage());
         home: const LoginPage());
   }
 }

@@ -124,15 +124,16 @@ class GraphQlService {
     }
   }
 
-
-
   FutureOr<List<AvailableAppointment>> getAvailableAppointments(
-      {required GraphQLClient client, required String specialty, required String startDate, required String endDate}) async {
+      {required GraphQLClient client,
+      required String specialty,
+      required String startDate,
+      required String endDate}) async {
     try {
       print(specialty);
       QueryResult result = await client.query(QueryOptions(
-        fetchPolicy: FetchPolicy.noCache,
-        document: gql('''
+          fetchPolicy: FetchPolicy.noCache,
+          document: gql('''
   query allAvailableAppointments(\$specialty: Specialty!, \$startDate: LocalDate!, \$endDate: LocalDate!) {
     availableAppointments(specialty: \$specialty, startDate: \$startDate, endDate: \$endDate) {
       doctor {
@@ -147,8 +148,12 @@ class GraphQlService {
       },
     }
   }
-'''), variables: {"specialty": specialty, "startDate": startDate, "endDate": endDate}
-      ));
+'''),
+          variables: {
+            "specialty": specialty,
+            "startDate": startDate,
+            "endDate": endDate
+          }));
 
       if (result.hasException) {
         throw result.exception!;
@@ -163,7 +168,6 @@ class GraphQlService {
       throw Exception(e);
     }
   }
-
 
   FutureOr<bool> createAppointment(
       {required GraphQLClient client,
@@ -184,7 +188,7 @@ class GraphQlService {
           "timeBlockId": timeBlockId
         },
       ));
-
+      print(result);
       if (result.hasException) {
         print("una excepcion");
         throw result.exception!;
@@ -193,6 +197,8 @@ class GraphQlService {
       bool response = result.data!['bookAppointment'];
       print("hay respuesta");
       if (response == true) {
+        return response;
+      } else if (response == false) {
         return response;
       } else {
         throw Exception(result.exception);

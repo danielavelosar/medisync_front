@@ -41,6 +41,9 @@ class _AllAppointmentsState extends State<AllAppointments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
         body: _appointmentResponse == null
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -83,7 +86,7 @@ class _AllAppointmentsState extends State<AllAppointments> {
                                   width: MediaQuery.of(context).size.width > 400
                                       ? 20
                                       : 0),
-                              ],
+                            ],
                           ),
                         ),
                       ),
@@ -99,7 +102,7 @@ class _AllAppointmentsState extends State<AllAppointments> {
                     token: widget.token,
                     tokenType: widget.tokenType,
                   ),
-                  ],
+                ],
               ));
   }
 }

@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:prueba_64/api/api_models.dart';
 import 'package:prueba_64/api/graphql_service.dart';
-import 'package:prueba_64/presentation/screens/all_appointments.dart';
+import 'package:prueba_64/presentation/screens/create_appointment_page.dart';
 import 'package:prueba_64/presentation/widgets/appointments_widget.dart';
 import 'package:prueba_64/utils/graphql_config.dart';
 import 'package:prueba_64/presentation/screens/search_page.dart';
+import 'package:prueba_64/presentation/widgets/dropdown_specialties.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({super.key, required this.token, required this.tokenType});
   final String token;
   final String tokenType;
-  final GraphQLClient client = GraphQlConfig.createAuthClient("", "");
+  final GraphQLClient _client = GraphQlConfig.createAuthClient("", "");
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -21,17 +22,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    final GraphQLClient client =
+    final GraphQLClient _client =
         GraphQlConfig.createAuthClient(widget.token, widget.tokenType);
-    _renderAppointments(client);
+    _renderAppointments(_client);
   }
 
   List<BookedAppointment>? _appointmentResponse;
 
-  Future<List<BookedAppointment>> _renderAppointments(client) async {
+  Future<List<BookedAppointment>> _renderAppointments(_client) async {
     _appointmentResponse = null;
     _appointmentResponse =
-        await GraphQlService().getBookedAppointments(client: client);
+        await GraphQlService().getBookedAppointments(client: _client);
 
     print(_appointmentResponse?[0].doctor.specialty.toString());
     setState(() {});
@@ -49,7 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
             : Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 3,
+                    height: MediaQuery.of(context).size.width > 800
+                        ? MediaQuery.of(context).size.height / 3
+                        : 300,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Colors.white,
                             ],
                           ),
-                          borderRadius: const BorderRadius.only(
+                          borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(30),
                               bottomRight: Radius.circular(30))),
                       child: DecoratedBox(
@@ -87,10 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               SafeArea(
                                 child: SizedBox(
                                   width: MediaQuery.of(context).size.width > 800
-                                      ? MediaQuery.of(context).size.width / 3
-                                      : null,
+                                      ? MediaQuery.of(context).size.width / 2
+                                      : 300,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text("Welcome Back!",
                                           style: TextStyle(
@@ -118,45 +121,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .onSecondary)),
-                                      ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            elevation: 2,
-                                            fixedSize: const Size(250, 60),
-                                            backgroundColor: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SearchResultsPage(
-                                                            specialty: Specialty
-                                                                .Anesthesiology,
-                                                            token: widget.token,
-                                                            tokenType: widget
-                                                                .tokenType)));
-                                          },
-                                          child: const Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Search by Specialty",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              SizedBox(width: 10),
-                                              Icon(
-                                                Icons.search,
-                                                color: Colors.white,
-                                              )
-                                            ],
-                                          )),
+                                      SizedBox(
+                                          height: MediaQuery.of(context)
+                                                      .size
+                                                      .width >
+                                                  800
+                                              ? 0
+                                              : 20),
+                                      Container(
+                                        child: DropdownSpecialties(
+                                          token: widget.token,
+                                          tokenType: widget.tokenType,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -167,9 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   Text(
-                    "Pending Appointments",
+                    "Appointments",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   AppointmentWidget(
@@ -187,14 +164,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AllAppointments(
+                              builder: (context) => CreateAnAppointmentPage(
                                   token: widget.token,
                                   tokenType: widget.tokenType,
-                                  )),
+                                  doctorId: -35,
+                                  date: "2023-10-13",
+                                  timeBlockId: 1)),
                         );
                       },
                       child: const Text(
-                        "See all appointments",
+                        "create an appointment",
                         style: TextStyle(color: Colors.white),
                       )),
                 ],
