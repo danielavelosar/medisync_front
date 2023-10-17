@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:prueba_64/api/api_models.dart';
 import 'package:prueba_64/api/graphql_service.dart';
+import 'package:prueba_64/presentation/screens/all_appointments.dart';
 import 'package:prueba_64/presentation/screens/create_appointment_page.dart';
 import 'package:prueba_64/presentation/widgets/appointments_widget.dart';
 import 'package:prueba_64/utils/graphql_config.dart';
@@ -74,9 +77,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             image: MediaQuery.of(context).size.width > 800
                                 ? DecorationImage(
                                     image: const AssetImage(
-                                        'lib/assets/images/doctor.png'),
+                                        'lib/assets/images/doctor3.png'),
                                     fit: BoxFit.contain,
-                                    alignment: Alignment.centerRight,
+                                    alignment: Alignment.topRight,
                                     // colorFilter: ColorFilter.mode(
                                     //     Theme.of(context)
                                     //         .colorScheme
@@ -157,10 +160,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     "Appointments",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  AppointmentWidget(
-                    appointmentResponse: _appointmentResponse!,
-                    token: widget.token,
-                    tokenType: widget.tokenType,
+                  Padding(
+                    padding: MediaQuery.of(context).size.width > 800
+                        ? const EdgeInsets.symmetric(horizontal: 100)
+                        : const EdgeInsets.symmetric(horizontal: 0),
+                    child: AppointmentWidget(
+                      appointmentResponse: _appointmentResponse!,
+                      token: widget.token,
+                      tokenType: widget.tokenType,
+                    ),
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -172,16 +180,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CreateAnAppointmentPage(
-                                  token: widget.token,
-                                  tokenType: widget.tokenType,
-                                  doctorId: -35,
-                                  date: "2023-10-13",
-                                  timeBlockId: 1)),
+                              builder: (context) => AllAppointments(
+                                    token: widget.token,
+                                    tokenType: widget.tokenType,
+                                  )),
                         );
                       },
                       child: const Text(
-                        "create an appointment",
+                        "all my appointments",
                         style: TextStyle(color: Colors.white),
                       )),
                 ],
