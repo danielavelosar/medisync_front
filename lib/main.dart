@@ -41,11 +41,12 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.karla().fontFamily,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
+                color: Color.fromRGBO(0, 78, 174, 1),
               ),
               titleSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,
                   fontSize: MediaQuery.of(context).size.width > 800 ? 16 : 12,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white),
               labelSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,

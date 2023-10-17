@@ -157,9 +157,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Appointments",
+                    "Pending Appointments",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  SizedBox(height: 10),
                   Padding(
                     padding: MediaQuery.of(context).size.width > 800
                         ? const EdgeInsets.symmetric(horizontal: 100)
@@ -170,6 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       tokenType: widget.tokenType,
                     ),
                   ),
+                  SizedBox(height: 10),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
@@ -186,9 +188,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   )),
                         );
                       },
-                      child: const Text(
-                        "all my appointments",
-                        style: TextStyle(color: Colors.white),
+                      child: SizedBox(
+                        height:
+                            MediaQuery.of(context).size.width > 800 ? 50 : null,
+                        width: MediaQuery.of(context).size.width > 800
+                            ? 300
+                            : null,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: const Text(
+                              "All my appointments",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       )),
                 ],
               ));

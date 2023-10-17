@@ -25,26 +25,64 @@ class AppointmentWidget extends StatelessWidget {
             shrinkWrap: true,
             itemCount: appointmentResponse!.length,
             itemBuilder: (context, index) {
-              return Container(
-                child: ListTile(
-                  title: Text(
-                      '${appointmentResponse![index].doctor.specialty.toString()} on ${appointmentResponse![index].date} at ${appointmentResponse![index].timeBlock.startTime}'),
-                  subtitle: Text(appointmentResponse![index].doctor.name),
-                  trailing: appointmentResponse[index].type == "PENDING" ? ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CancelAppointmentPage(
-                                    appointmentId:
-                                        appointmentResponse![index].id,
-                                    token: token,
-                                    tokenType: tokenType,
-                                  )));
-                    },
-                    child: Icon(Icons.delete, color: Colors.white),
-                  ) : null,
-                ),
+              return Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      title: Text(
+                          '${appointmentResponse![index].doctor.specialty.toString().substring(10)} on ${appointmentResponse![index].date} at ${appointmentResponse![index].timeBlock.startTime}',
+                          style: TextStyle(
+                              fontWeight: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .fontWeight,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .fontSize,
+                              fontFamily: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .fontFamily,
+                              color: Theme.of(context).colorScheme.primary)),
+                      subtitle: Text(appointmentResponse![index].doctor.name),
+                      trailing: appointmentResponse[index].type == "PENDING"
+                          ? ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            CancelAppointmentPage(
+                                              appointmentId:
+                                                  appointmentResponse![index]
+                                                      .id,
+                                              token: token,
+                                              tokenType: tokenType,
+                                            )));
+                              },
+                              child: Icon(Icons.delete, color: Colors.white),
+                            )
+                          : null,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
               );
             },
           ),
