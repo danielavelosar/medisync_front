@@ -292,18 +292,21 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.width > 800
+                                ? 20
+                                : 0),
                         child: Column(
                           children: [
                             Row(
                               children: [
                                 Padding(
                                   padding:
-                                      MediaQuery.of(context).size.width > 400
+                                      MediaQuery.of(context).size.width > 800
                                           ? const EdgeInsets.symmetric(
                                               horizontal: 150, vertical: 10)
                                           : const EdgeInsets.symmetric(
-                                              horizontal: 30, vertical: 10),
+                                              horizontal: 0, vertical: 10),
                                   child: Text(
                                     "Login",
                                     style: TextStyle(

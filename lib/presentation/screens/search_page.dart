@@ -61,20 +61,30 @@ class _SearchResultPage extends State<SearchResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: Colors.transparent,
         ),
         body: _availableAppointmentResponse == null
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Column(
-                children: [
-                  const Text("Appointments"),
-                  AvailableAppointmentWidget(
-                      appointmentResponse: _availableAppointmentResponse!,
-                      token: widget.token,
-                      tokenType: widget.tokenType),
-                ],
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text("Appointments",
+                        style: Theme.of(context).textTheme.titleLarge),
+                    Text("by ${widget.specialty.toString().split(".")[1]}",
+                        style: Theme.of(context).textTheme.titleMedium),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: AvailableAppointmentWidget(
+                          appointmentResponse: _availableAppointmentResponse!,
+                          token: widget.token,
+                          tokenType: widget.tokenType),
+                    ),
+                  ],
+                ),
               ));
   }
 }

@@ -30,7 +30,7 @@ class AppointmentWidget extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(30),
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
@@ -41,42 +41,48 @@ class AppointmentWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: ListTile(
-                      title: Text(
-                          '${appointmentResponse![index].doctor.specialty.toString().substring(10)} on ${appointmentResponse![index].date} at ${appointmentResponse![index].timeBlock.startTime}',
-                          style: TextStyle(
-                              fontWeight: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .fontWeight,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .fontSize,
-                              fontFamily: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .fontFamily,
-                              color: Theme.of(context).colorScheme.primary)),
-                      subtitle: Text(appointmentResponse![index].doctor.name),
-                      trailing: appointmentResponse[index].type == "PENDING"
-                          ? ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CancelAppointmentPage(
-                                              appointmentId:
-                                                  appointmentResponse![index]
-                                                      .id,
-                                              token: token,
-                                              tokenType: tokenType,
-                                            )));
-                              },
-                              child: Icon(Icons.delete, color: Colors.white),
-                            )
-                          : null,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: ListTile(
+                        title: Text(
+                            '${appointmentResponse![index].doctor.specialty.toString().substring(10)} on ${appointmentResponse![index].date} at ${appointmentResponse![index].timeBlock.startTime}',
+                            style: TextStyle(
+                                fontWeight: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .fontWeight,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .fontSize,
+                                fontFamily: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .fontFamily,
+                                color: Theme.of(context).colorScheme.primary)),
+                        subtitle: Text(appointmentResponse![index].doctor.name),
+                        trailing: appointmentResponse[index].type == "PENDING"
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CancelAppointmentPage(
+                                                appointmentId:
+                                                    appointmentResponse![index]
+                                                        .id,
+                                                token: token,
+                                                tokenType: tokenType,
+                                              )));
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ))
+                            : null,
+                      ),
                     ),
                   ),
                   SizedBox(

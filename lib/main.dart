@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.karla().fontFamily,
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
+                color: Color.fromRGBO(0, 78, 174, 1),
               ),
               titleMedium: TextStyle(
                 fontFamily: GoogleFonts.karla().fontFamily,
