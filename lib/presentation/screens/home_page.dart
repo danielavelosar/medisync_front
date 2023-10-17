@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.width > 800
-                        ? MediaQuery.of(context).size.height / 3
+                        ? MediaQuery.of(context).size.height / 2
                         : 300,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -91,7 +91,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment:
+                                MediaQuery.of(context).size.width > 800
+                                    ? MainAxisAlignment.start
+                                    : MainAxisAlignment.center,
                             children: [
                               SizedBox(
                                   width: MediaQuery.of(context).size.width > 400
@@ -105,13 +108,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SizedBox(height: 20),
+                                      MediaQuery.of(context).size.width > 800
+                                          ? const SizedBox(
+                                              height: 120,
+                                              width: 200,
+                                              child: DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'lib/assets/images/medisync_logo_azul.png'),
+                                                  fit: BoxFit.contain,
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                )),
+                                              ))
+                                          : SizedBox(
+                                              height: 20,
+                                            ),
                                       Text("Welcome Back!",
                                           style: TextStyle(
-                                              fontSize: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge!
-                                                  .fontSize,
+                                              fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .width >
+                                                      800
+                                                  ? 60
+                                                  : 30,
                                               fontWeight: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge!
@@ -155,7 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(
+                      height:
+                          MediaQuery.of(context).size.width > 800 ? 20 : 10),
                   Text(
                     "Pending Appointments",
                     style: Theme.of(context).textTheme.titleMedium,
@@ -164,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Padding(
                     padding: MediaQuery.of(context).size.width > 800
                         ? const EdgeInsets.symmetric(horizontal: 100)
-                        : const EdgeInsets.symmetric(horizontal: 0),
+                        : const EdgeInsets.symmetric(horizontal: 30),
                     child: AppointmentWidget(
                       appointmentResponse: _appointmentResponse!,
                       token: widget.token,
@@ -189,11 +212,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       },
                       child: SizedBox(
-                        height:
-                            MediaQuery.of(context).size.width > 800 ? 50 : null,
-                        width: MediaQuery.of(context).size.width > 800
-                            ? 300
-                            : null,
+                        height: 50,
+                        width:
+                            MediaQuery.of(context).size.width > 800 ? 300 : 200,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
