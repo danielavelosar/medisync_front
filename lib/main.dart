@@ -19,14 +19,14 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme(
-              primary: const Color.fromARGB(255, 23, 103, 95),
-              secondary: Color.fromARGB(255, 23, 103, 95),
+              primary: Color.fromRGBO(0, 78, 174, 1),
+              secondary: Color.fromRGBO(0, 78, 174, 1),
               surface: const Color.fromARGB(255, 10, 166, 150),
               background: Color.fromARGB(255, 239, 243, 243),
               error: Color.fromARGB(255, 255, 0, 0),
               onPrimary: Color.fromARGB(255, 135, 195, 189),
-              onSecondary: Color.fromARGB(255, 14, 87, 79),
-              onSurface: Color.fromARGB(255, 14, 87, 79),
+              onSecondary: Color.fromRGBO(0, 78, 174, 1),
+              onSurface: Color.fromRGBO(1, 34, 73, 1),
               onBackground: const Color.fromARGB(255, 188, 216, 214),
               onError: Color.fromARGB(255, 34, 110, 103),
               brightness: Brightness.light),

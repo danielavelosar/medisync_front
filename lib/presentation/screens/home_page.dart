@@ -72,10 +72,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                             image: MediaQuery.of(context).size.width > 800
-                                ? const DecorationImage(
-                                    image: AssetImage(
-                                        'lib/assets/images/logo_blanco_medisync.png'),
+                                ? DecorationImage(
+                                    image: const AssetImage(
+                                        'lib/assets/images/doctor.png'),
                                     fit: BoxFit.contain,
+                                    alignment: Alignment.centerRight,
+                                    // colorFilter: ColorFilter.mode(
+                                    //     Theme.of(context)
+                                    //         .colorScheme
+                                    //         .primary
+                                    //         .withOpacity(0.2),
+                                    //     BlendMode.dstATop)
                                   )
                                 : null),
                         child: Padding(
@@ -93,8 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ? MediaQuery.of(context).size.width / 2
                                       : 300,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      SizedBox(height: 20),
                                       Text("Welcome Back!",
                                           style: TextStyle(
                                               fontSize: Theme.of(context)
