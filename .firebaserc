@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "cccc": "ejemplo-memes",
+    "ds": "perfume-db",
+    "default": "perfume-db"
+  },
+  "targets": {},
+  "etags": {}
+}
