@@ -32,9 +32,9 @@ const RESOURCES = {".vercel/project.json": "b031a8383fda4ac67a2877a342452041",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "d68fd4bab92878197557f24aa499b592",
-"/": "d68fd4bab92878197557f24aa499b592",
-"main.dart.js": "cc53859e5c11ac5cff1fcca098018d15",
+"index.html": "5ca0868d4af9ac967831e19134c9c85e",
+"/": "5ca0868d4af9ac967831e19134c9c85e",
+"main.dart.js": "03794a723043c67470143c9ac5be7161",
 "manifest.json": "1ca17d2bbe672a255143309f4e84e0aa",
 "version.json": "9bfd9d9ee7b25ecbf770da6518f30c60"};
 // The application shell files that are downloaded before a service worker can
