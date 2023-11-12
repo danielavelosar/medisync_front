@@ -60,15 +60,19 @@ class _SearchResultPage extends State<SearchResultsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        ),
-        body: _availableAppointmentResponse == null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(8.0),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: _availableAppointmentResponse == null
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+                maxHeight: MediaQuery.of(context).size.height,
+              ),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Text("Appointments",
@@ -85,6 +89,8 @@ class _SearchResultPage extends State<SearchResultsPage> {
                     ),
                   ],
                 ),
-              ));
+              ),
+            ),
+    );
   }
 }

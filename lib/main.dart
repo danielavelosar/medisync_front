@@ -40,23 +40,22 @@ class MyApp extends StatelessWidget {
               ),
               titleMedium: TextStyle(
                 fontFamily: GoogleFonts.karla().fontFamily,
-                fontSize: 20,
+                fontSize: 25,
                 fontWeight: FontWeight.w500,
                 color: Color.fromRGBO(0, 78, 174, 1),
               ),
               titleSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,
-                  fontSize: MediaQuery.of(context).size.width > 800 ? 16 : 12,
+                  fontSize: MediaQuery.of(context).size.width > 900 ? 16 : 12,
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
               labelSmall: TextStyle(
                   fontFamily: GoogleFonts.karla().fontFamily,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Color.fromARGB(255, 10, 166, 150))),
+                  color: Color.fromRGBO(0, 78, 174, 1))),
           fontFamily: GoogleFonts.karla().fontFamily,
         ),
-        //home: const LoginPage());
         home: const LoginPage());
   }
 }

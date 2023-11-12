@@ -118,11 +118,14 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           children: [
                             Padding(
-                              padding: MediaQuery.of(context).size.width > 400
+                              padding: MediaQuery.of(context).size.width > 800
                                   ? const EdgeInsets.symmetric(
                                       horizontal: 150, vertical: 10)
-                                  : const EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 10),
+                                  : MediaQuery.of(context).size.width > 500
+                                      ? const EdgeInsets.symmetric(
+                                          horizontal: 70, vertical: 10)
+                                      : const EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 10),
                               child: Text(
                                 "Login",
                                 style: TextStyle(
@@ -163,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                                           width: 2,
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .primary,
+                                              .secondary,
                                         )),
                                     labelText: 'CardId',
                                   ),
@@ -185,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                                         borderSide: BorderSide(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .primary)),
+                                                .secondary)),
                                     labelText: 'Password',
                                   ),
                                 ),
@@ -209,9 +212,9 @@ class _LoginPageState extends State<LoginPage> {
                                     elevation: 5,
                                     shadowColor: Colors.black,
                                     backgroundColor:
-                                        Theme.of(context).colorScheme.primary,
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
-                                  child: Text('Login',
+                                  child: const Text('Login',
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white)),
                                 ),
@@ -281,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                 ),
                 SizedBox(
-                  height: 500,
+                  height: MediaQuery.of(context).size.height - 200,
                   width: 400,
                   child: Container(
                     decoration: BoxDecoration(
@@ -296,18 +299,15 @@ class _LoginPageState extends State<LoginPage> {
                             vertical: MediaQuery.of(context).size.width > 800
                                 ? 20
                                 : 0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding:
-                                      MediaQuery.of(context).size.width > 800
-                                          ? const EdgeInsets.symmetric(
-                                              horizontal: 150, vertical: 10)
-                                          : const EdgeInsets.symmetric(
-                                              horizontal: 0, vertical: 10),
-                                  child: Text(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              //titulo login
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
                                     "Login",
                                     style: TextStyle(
                                       color:
@@ -323,116 +323,125 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     textAlign: TextAlign.start,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  if (_error != "")
-                                    Text(
-                                      _error,
-                                      style: const TextStyle(color: Colors.red),
-                                    ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      child: TextField(
-                                        controller: _cardIdController,
-                                        decoration: InputDecoration(
-                                          labelStyle: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                          border: UnderlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              borderSide: BorderSide(
-                                                width: 2,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                              )),
-                                          labelText: 'CardId',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      child: TextField(
-                                        controller: _passwordController,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                          labelStyle: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall,
-                                          border: UnderlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              borderSide: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)),
-                                          labelText: 'Password',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width >
-                                              400
-                                          ? MediaQuery.of(context).size.width *
-                                              0.4
-                                          : MediaQuery.of(context).size.width *
-                                              0.8,
-                                      height: MediaQuery.of(context)
-                                                  .size
-                                                  .width >
-                                              400
-                                          ? MediaQuery.of(context).size.height *
-                                              0.06
-                                          : null,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          _loginButtonAction(
-                                              _cardIdController.text,
-                                              _passwordController.text);
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          elevation: 5,
-                                          shadowColor: Colors.black,
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
-                                        child: Text('Login',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white)),
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
-                            ),
-                          ],
+                              Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    if (_error != "")
+                                      Text(
+                                        _error,
+                                        style:
+                                            const TextStyle(color: Colors.red),
+                                      ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      child: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.8,
+                                        child: TextField(
+                                          controller: _cardIdController,
+                                          decoration: InputDecoration(
+                                            labelStyle: Theme.of(context)
+                                                .textTheme
+                                                .labelSmall,
+                                            border: UnderlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                )),
+                                            labelText: 'CardId',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.8,
+                                        child: TextField(
+                                          controller: _passwordController,
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            labelStyle: Theme.of(context)
+                                                .textTheme
+                                                .labelSmall,
+                                            border: UnderlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary)),
+                                            labelText: 'Password',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width >
+                                                    400
+                                                ? MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.4
+                                                : MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.8,
+                                        height:
+                                            MediaQuery.of(context).size.width >
+                                                    400
+                                                ? MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.06
+                                                : null,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            _loginButtonAction(
+                                                _cardIdController.text,
+                                                _passwordController.text);
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 5,
+                                            shadowColor: Colors.black,
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                          child: Text('Login',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -450,21 +459,25 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(Radius.circular(60)),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(60)),
-                      image: DecorationImage(
-                        image:
-                            const AssetImage('lib/assets/images/doctor2.png'),
-                        fit: BoxFit.contain,
-                        alignment: Alignment.bottomRight,
-                        // colorFilter: ColorFilter.mode(
-                        //     Theme.of(context)
-                        //         .colorScheme
-                        //         .primary
-                        //         .withOpacity(0.2),
-                        //     BlendMode.dstATop)
-                      )),
+                child: Padding(
+                  padding: const EdgeInsets.all(45),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(60)),
+                        image: DecorationImage(
+                          image:
+                              const AssetImage('lib/assets/images/bg_main.png'),
+                          fit: BoxFit.contain,
+                          alignment: Alignment.center,
+                          // colorFilter: ColorFilter.mode(
+                          //     Theme.of(context)
+                          //         .colorScheme
+                          //         .primary
+                          //         .withOpacity(0.2),
+                          //     BlendMode.dstATop)
+                        )),
+                  ),
                 ),
               ),
             ),

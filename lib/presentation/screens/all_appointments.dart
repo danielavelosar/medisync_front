@@ -48,26 +48,34 @@ class _AllAppointmentsState extends State<AllAppointments> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Column(
-                children: [
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "All Appointments",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+            : ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                  maxHeight: MediaQuery.of(context).size.height,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "All Appointments",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: AppointmentWidget(
+                          appointmentResponse: _appointmentResponse!,
+                          token: widget.token,
+                          tokenType: widget.tokenType,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: AppointmentWidget(
-                      appointmentResponse: _appointmentResponse!,
-                      token: widget.token,
-                      tokenType: widget.tokenType,
-                    ),
-                  ),
-                ],
+                ),
               ));
   }
 }

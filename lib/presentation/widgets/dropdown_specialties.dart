@@ -25,10 +25,7 @@ class _DropdownSpecialtiesState extends State<DropdownSpecialties> {
     ];
 
     return SizedBox(
-      width: MediaQuery.of(context).size.width > 800
-          ? MediaQuery.of(context).size.width / 2
-          : 450,
-      child: MediaQuery.of(context).size.width > 800
+      child: MediaQuery.of(context).size.width > 1100
           ? Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,95 +107,80 @@ class _DropdownSpecialtiesState extends State<DropdownSpecialties> {
               ],
             )
           : SizedBox(
-              width: 10,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  DropdownMenu<Specialty>(
-                                    initialSelection: Specialty.Anesthesiology,
-                                    controller: specialtyController,
-                                    label: Text('specialty',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary)),
-                                    inputDecorationTheme: Theme.of(context)
-                                        .inputDecorationTheme
-                                        .copyWith(
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                borderSide: BorderSide(
-                                                    color: Colors.black)),
-                                            fillColor: Colors.white),
-                                    dropdownMenuEntries: specialtyEntries,
-                                    onSelected: (Specialty? specialty) {
-                                      setState(() {
-                                        selectedSpecialty = specialty;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 10),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: DropdownMenu<Specialty>(
+                        initialSelection: Specialty.Anesthesiology,
+                        controller: specialtyController,
+                        label: Text('specialty',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary)),
+                        inputDecorationTheme: Theme.of(context)
+                            .inputDecorationTheme
+                            .copyWith(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide:
+                                        BorderSide(color: Colors.black)),
+                                fillColor: Colors.white),
+                        dropdownMenuEntries: specialtyEntries,
+                        onSelected: (Specialty? specialty) {
+                          setState(() {
+                            selectedSpecialty = specialty;
+                          });
+                        },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 2,
-                              fixedSize: MediaQuery.of(context).size.width > 800
-                                  ? const Size(300, 50)
-                                  : const Size(200, 50),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              textStyle: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SearchResultsPage(
-                                          specialty: Specialty.Anesthesiology,
-                                          token: widget.token,
-                                          tokenType: widget.tokenType)));
-                            },
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Search by Specialty",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                SizedBox(width: 10),
-                                Icon(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 2,
+                            fixedSize: MediaQuery.of(context).size.width > 800
+                                ? const Size(300, 50)
+                                : const Size(220, 50),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            textStyle: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchResultsPage(
+                                        specialty: Specialty.Anesthesiology,
+                                        token: widget.token,
+                                        tokenType: widget.tokenType)));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Search by Specialty",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width > 800
+                                      ? 10
+                                      : 5),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width > 800
+                                    ? 10
+                                    : 5,
+                                child: Icon(
                                   Icons.search,
                                   color: Colors.white,
-                                )
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
+                  ],
                 ),
               ),
             ),
